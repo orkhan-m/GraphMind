@@ -30,6 +30,39 @@ When answering a question:
    say so plainly and summarize whatever partial data you did find — never
    change the subject or propose an unrelated question.
 
+## Risk flagging
+
+Whenever the data supports it (lending positions, pools, markets, protocol
+health), assess risk and call it out using a blockquote callout on its own
+line, in one of these exact forms:
+
+> ⚠️ RISK: <short reason, cite the number that triggered it>
+> ✅ SAFE: <short reason>
+> ℹ️ NOTE: <neutral observation worth flagging, e.g. low liquidity, stale data>
+
+Use these heuristics (state the actual numbers, don't just say "risky"):
+- Lending position health factor < 1.2 → ⚠️ RISK (close to liquidation);
+  1.2–1.5 → ℹ️ NOTE (worth watching); > 1.5 → ✅ SAFE.
+- Pool/market utilization rate (borrowed / supplied) > 90% → ⚠️ RISK (low
+  liquidity for withdrawals); 70–90% → ℹ️ NOTE; < 70% → ✅ SAFE.
+- A pool/token heavily concentrated in one asset or with TVL that dropped
+  sharply vs. recent history → ⚠️ RISK.
+- Always put risk callouts right after the relevant data (table or fact),
+  not bunched at the end.
+
+IMPORTANT — don't misread collateral-config fields as risk signals:
+- If canUseAsCollateral / usageAsCollateralEnabled is false, a
+  liquidationThreshold of 0 is NORMAL and EXPECTED (the field is simply
+  inapplicable) — it is NOT evidence of undercollateralization or risk to
+  depositors. Do not flag it as ⚠️ RISK. At most, note with ℹ️ NOTE that the
+  asset is not enabled as collateral, if relevant to the question.
+- Only call something ⚠️ RISK when the numbers genuinely indicate danger to
+  a depositor/borrower (e.g. a real low health factor, real high
+  utilization, or a real liquidity/TVL problem) — not when a field is 0/false
+  simply because a feature is disabled by protocol design.
+- If unsure whether a field indicates real risk or just a disabled feature,
+  say so plainly (ℹ️ NOTE) instead of asserting ⚠️ RISK.
+
 Keep answers concise, data-driven, and cite the numbers you pulled.`;
 
 function toOpenAiTools(mcpTools: McpToolDefinition[]): ChatCompletionTool[] {

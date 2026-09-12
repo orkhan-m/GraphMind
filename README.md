@@ -82,14 +82,6 @@ Starts an interactive terminal chat instead of the web UI.
 - [src/cli.ts](src/cli.ts) — interactive CLI chat entry point (alternative to the web UI).
 - [public/](public/) — static chat frontend (HTML/CSS/vanilla JS) served by the Express server.
 
-## Hackathon submission checklist
-
-- [ ] Uses live Graph data (via Subgraph MCP) ✅
-- [ ] Agent reasons over data instead of printing raw results ✅
-- [ ] Open-source repo ✅
-- [ ] 2–4 min demo video
-- [ ] "Wow" feature: comparison tables / risk flags / trend summaries (see agent system prompt)
-
 ## License
 
 MIT
