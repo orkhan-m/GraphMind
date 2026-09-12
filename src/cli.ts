@@ -7,7 +7,7 @@ import { GraphMindAgent } from "./agent.js";
 async function main() {
   const gatewayApiKey = process.env.GATEWAY_API_KEY;
   const openaiApiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_MODEL || "gpt-4o";
+  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
   if (!gatewayApiKey) {
     console.error(

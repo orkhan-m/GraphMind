@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const gatewayApiKey = process.env.GATEWAY_API_KEY;
 const openaiApiKey = process.env.OPENAI_API_KEY;
-const model = process.env.OPENAI_MODEL || "gpt-4o";
+const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 const port = Number(process.env.PORT) || 3000;
 
 if (!gatewayApiKey) {

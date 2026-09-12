@@ -22,7 +22,7 @@ body {
 }
 
 .app {
-  max-width: 760px;
+  max-width: 900px;
   margin: 0 auto;
   height: 100vh;
   display: flex;
@@ -78,6 +78,70 @@ body {
   align-self: flex-start;
   background: var(--agent-bubble);
   border-bottom-left-radius: 2px;
+  white-space: normal;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.msg--agent p {
+  margin: 0 0 10px;
+}
+
+.msg--agent p:last-child {
+  margin-bottom: 0;
+}
+
+.msg--agent h3,
+.msg--agent h4,
+.msg--agent h5,
+.msg--agent h6 {
+  margin: 14px 0 6px;
+  color: var(--text);
+}
+
+.msg--agent h3:first-child,
+.msg--agent h4:first-child {
+  margin-top: 0;
+}
+
+.msg--agent ul {
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+
+.msg--agent li {
+  margin-bottom: 4px;
+}
+
+.msg--agent code {
+  background: #0b0e14;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.msg--agent table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 6px 0 14px;
+  font-size: 13px;
+}
+
+.msg--agent th,
+.msg--agent td {
+  border: 1px solid #2a3040;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.msg--agent th {
+  background: #232a3a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.msg--agent tr:nth-child(even) td {
+  background: #171c28;
 }
 
 .msg--pending {
