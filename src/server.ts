@@ -27,13 +27,21 @@ const mcp = new SubgraphMcpClient(gatewayApiKey);
 const agent = new GraphMindAgent(openaiApiKey, mcp, model);
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+const MAX_QUESTION_LENGTH = 500;
 
 app.post("/api/chat", async (req, res) => {
   const question = (req.body?.question ?? "").toString().trim();
   if (!question) {
     res.status(400).json({ error: "Missing 'question' in request body." });
+    return;
+  }
+  if (question.length > MAX_QUESTION_LENGTH) {
+    res.status(400).json({
+      error: `Question is too long (max ${MAX_QUESTION_LENGTH} characters).`,
+    });
     return;
   }
 

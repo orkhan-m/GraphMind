@@ -37,6 +37,10 @@ async function main() {
       const question = await rl.question("you> ");
       if (!question.trim()) continue;
       if (["exit", "quit"].includes(question.trim().toLowerCase())) break;
+      if (question.length > 500) {
+        console.error("Question is too long (max 500 characters).");
+        continue;
+      }
 
       try {
         const answer = await agent.ask(question);

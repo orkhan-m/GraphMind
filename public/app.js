@@ -56,7 +56,24 @@ function renderMarkdown(raw) {
           "<tr>" + row.map((c) => `<td>${inline(c)}</td>`).join("") + "</tr>";
       }
       table += "</tbody></table>";
-      htmlParts.push(table);
+      htmlParts.push(`<div class="table-wrap">${table}</div>`);
+      continue;
+    }
+
+    // Blockquote callout, e.g. "> ⚠️ RISK: ..." / "> ✅ SAFE: ..." / "> ℹ️ NOTE: ..."
+    // Each callout line becomes its own box (they're distinct flags, not a
+    // continued quote).
+    const quoteMatch = /^\s*&gt;\s?(.*)$/.exec(line);
+    if (quoteMatch) {
+      const content = quoteMatch[1];
+      let variant = "note";
+      if (/^⚠️/.test(content) || /\bRISK\b/i.test(content)) variant = "risk";
+      else if (/^✅/.test(content) || /\bSAFE\b/i.test(content))
+        variant = "safe";
+      htmlParts.push(
+        `<div class="callout callout--${variant}">${inline(content)}</div>`,
+      );
+      i++;
       continue;
     }
 
@@ -96,7 +113,8 @@ function renderMarkdown(raw) {
       lines[i].trim() !== "" &&
       !/^(#{1,4})\s+/.test(lines[i]) &&
       !/^\s*[-*]\s+/.test(lines[i]) &&
-      !/^\s*\|.*\|\s*$/.test(lines[i])
+      !/^\s*\|.*\|\s*$/.test(lines[i]) &&
+      !/^\s*&gt;\s?/.test(lines[i])
     ) {
       paraLines.push(lines[i]);
       i++;
@@ -120,10 +138,19 @@ function addMessage(text, role) {
   return el;
 }
 
+const MAX_QUESTION_LENGTH = 500;
+
 formEl.addEventListener("submit", async (event) => {
   event.preventDefault();
   const question = inputEl.value.trim();
   if (!question) return;
+  if (question.length > MAX_QUESTION_LENGTH) {
+    addMessage(
+      `Question is too long (max ${MAX_QUESTION_LENGTH} characters).`,
+      "error",
+    );
+    return;
+  }
 
   addMessage(question, "user");
   inputEl.value = "";
