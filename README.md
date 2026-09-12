@@ -50,13 +50,25 @@ cp .env.example .env
 # then fill in GATEWAY_API_KEY and OPENAI_API_KEY in .env
 ```
 
-## Run
+## Run — Web UI (recommended for demos)
 
 ```bash
 npm run dev
 ```
 
-This starts an interactive CLI chat. Example prompts to try:
+Then open [http://localhost:3000](http://localhost:3000) in your browser — a
+simple chat interface where you type a question and see GraphMind's reasoned
+answer.
+
+## Run — CLI (alternative)
+
+```bash
+npm run cli
+```
+
+Starts an interactive terminal chat instead of the web UI.
+
+### Example prompts to try
 
 - "What are the top 5 lending pools by TVL on Aave?"
 - "Compare Uniswap v3 and Sushiswap swap volume over the last week."
@@ -66,7 +78,9 @@ This starts an interactive CLI chat. Example prompts to try:
 
 - [src/mcpClient.ts](src/mcpClient.ts) — thin wrapper around the MCP SDK, connects to The Graph's hosted Subgraph MCP over SSE.
 - [src/agent.ts](src/agent.ts) — OpenAI tool-calling loop: exposes MCP tools to the model, executes tool calls, feeds results back until the model produces a final reasoned answer.
-- [src/cli.ts](src/cli.ts) — interactive CLI chat entry point.
+- [src/server.ts](src/server.ts) — Express server exposing a `/api/chat` endpoint and serving the web UI.
+- [src/cli.ts](src/cli.ts) — interactive CLI chat entry point (alternative to the web UI).
+- [public/](public/) — static chat frontend (HTML/CSS/vanilla JS) served by the Express server.
 
 ## Hackathon submission checklist
 

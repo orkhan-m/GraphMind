@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphMind — DeFi Research Assistant</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <h1>GraphMind</h1>
+        <p>
+          Natural-language DeFi research, powered by live data from The Graph.
+        </p>
+      </header>
+
+      <main id="chat" class="chat"></main>
+
+      <form id="chat-form" class="chat-form">
+        <input
+          id="question"
+          type="text"
+          autocomplete="off"
+          placeholder="e.g. Compare Uniswap v3 and Sushiswap volume this week"
+          required
+        />
+        <button type="submit">Ask</button>
+      </form>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
