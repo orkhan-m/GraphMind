@@ -4,6 +4,9 @@
   "description": "Natural-language DeFi research assistant powered by The Graph's Subgraph MCP",
   "type": "module",
   "main": "dist/cli.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
